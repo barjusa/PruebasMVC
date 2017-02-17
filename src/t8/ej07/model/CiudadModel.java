@@ -25,6 +25,9 @@ public class CiudadModel extends Model {
 				.setParameter("filtro", patronFiltro)
 				.list();
 	}
+	public Ciudad getCiudadPorNombre(String nombre){
+		return (Ciudad) ss.createQuery("from Ciudad where nombre = :nombre").uniqueResult();
+	}
 	public Ciudad getCiudadPorId(Long id){
 		return ss.get(Ciudad.class, id);
 	}

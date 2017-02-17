@@ -53,12 +53,12 @@ public class CiudadController extends Controller {
 	public void modificarPost() {
 		String nombreAntiguo = request.getParameter("antigua");
 		String nombreNuevo = request.getParameter("ciudad");
-		Ciudad nuevaCiudad = new Ciudad(nombreAntiguo);
-		nuevaCiudad.setNombre(nombreNuevo);
 		CiudadModel model = new CiudadModel();
-		System.out.println("la ciudad es "+nuevaCiudad.getNombre());
-		Long id = nuevaCiudad.getId();
-		System.out.println("el id de la ciudad es: " + id);
+		Ciudad ciudadAntigua= model.getCiudadPorNombre(nombreAntiguo);
+		Long id = ciudadAntigua.getId();
+		ciudadAntigua.setNombre(nombreNuevo);
+		System.out.println("El id de la ciudad es "+id);
+		System.out.println("el nombre es"+nombreNuevo);
 		model.modificarCiudad(nombreNuevo, id);
 		view("ciudad/modificarPost.jsp");
 		
