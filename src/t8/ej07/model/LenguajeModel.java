@@ -19,6 +19,7 @@ public class LenguajeModel extends Model {
 		return ss.createQuery("from Lenguaje").list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Lenguaje> getLenguajeFiltrados(String filtro){
 		String patronFiltro = "%"+filtro+"%";
 		return ss.createQuery("from lenguaje where nombre like:filtro").setParameter("filtro", patronFiltro).list();
