@@ -42,4 +42,18 @@ public class CiudadController extends Controller{
 		view("ciudad/listarGet.jsp");
 		
 	}
+	
+	public void modificarGet(){
+		CiudadModel model = new CiudadModel();
+		List<Ciudad> ciudades = model.getTodas();
+		datos.put("ciudades", ciudades);
+		view("ciudad/modificarGet.jsp");
+	}
+	public void modificarPost(){
+		String nombreAntiguo = request.getParameter("antigua");
+		String nombreNuevo = request.getParameter("ciudad");
+		CiudadModel model = new CiudadModel();
+		model.modificarCiudad(nombreAntiguo,nombreNuevo);
+		view("ciudad/modificarPost.jsp");
+	}
 }

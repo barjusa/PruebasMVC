@@ -28,5 +28,15 @@ public class CiudadModel extends Model {
 	public Ciudad getCiudadPorId(Long id){
 		return ss.get(Ciudad.class, id);
 	}
+	
+	public void modificarCiudad(String nombreAntiguo,String nombreNuevo){
+		Transaction t = ss.beginTransaction();
+		List ciudad = ss.createQuery("from Ciudad where nombre like :nombreAntiguo").list();
+		Long id = ((Ciudad) ciudad).getId();
+		Ciudad p=(Ciudad)ss.load(Ciudad.class, id);
+		p.setNombre(nombreNuevo);
+		ss.merge(p);
+		t.commit();
+	}
 
 }
