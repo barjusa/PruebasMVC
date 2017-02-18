@@ -54,17 +54,17 @@ public class CiudadController extends Controller {
 		String nombreAntiguo = request.getParameter("antigua");
 		String nombreNuevo = request.getParameter("ciudad");
 		CiudadModel model = new CiudadModel();
-		Ciudad ciudadAntigua= model.getCiudadPorNombre(nombreAntiguo);
-		Long id = ciudadAntigua.getId();
-		ciudadAntigua.setNombre(nombreNuevo);
-		System.out.println("El id de la ciudad es "+id);
-		System.out.println("el nombre es"+nombreNuevo);
-		model.modificarCiudad(nombreNuevo, id);
-		view("ciudad/modificarPost.jsp");
+		List<Ciudad> ciudadAntigua = model.getCiudadPorNombre(nombreAntiguo);
+		Object[] ciudades = ciudadAntigua.toArray();
+		for (int i = 0; i < ciudades.length; i++) {
+			Long id = ((Ciudad) ciudades[i]).getId();
+			String nombreAntiguoCiudad = ((Ciudad) ciudades[i]).getNombre();
+			System.out.println("La ciudad a modificar es: " + nombreAntiguoCiudad);
+			model.modificarCiudad(nombreNuevo, id);
+		}
 		
-		// Ciudad ciudad = new
-		// CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("antigua")));
-		// Long idCiudad = model.getCiudadPorId(Long.parseLong(nuevaCiudad));
-		// Ciudad ciudad = model.getCiudadPorId(idCiudad);
+		datos.put("nombreCiudad", nombreNuevo);
+		view("ciudad/modificarPost.jsp");
+
 	}
 }

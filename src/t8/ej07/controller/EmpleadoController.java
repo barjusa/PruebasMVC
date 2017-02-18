@@ -56,8 +56,8 @@ public class EmpleadoController extends Controller {
 		EmpleadoModel model = new EmpleadoModel();
 		try {
 			model.guardarEmpleado(empleado);
-			/*datos.put("nombreEmpleado", nombre);
-			datos.put("ape1Empleado", ape1);
+			datos.put("nombreEmpleado", nombre);
+			/*datos.put("ape1Empleado", ape1);
 			datos.put("ape2Empleado", ape2);
 			datos.put("pwdEmpleado", pwd);
 			datos.put("tlfEmpleado", tlf);
