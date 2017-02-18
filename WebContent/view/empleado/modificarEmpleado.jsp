@@ -1,49 +1,65 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
 	<h2>Introduce los datos del nuevo empleado</h2>
-	<form class="form" action="${baseURL}empleado/modificarPost" method="post">
+	<form class="form" action="${baseURL}empleado/modificarPost"
+		method="post">
 		<div class="form-group">
 			<label for="idNombre">Nombre</label> <input class="form-control"
-				type="text" name="nombre" id="idNombre" value="${empleado.nombre}">
+				type="text" name="nombre" id="idNombre" value="${nombre}">
 		</div>
 		<div class="form-group">
 			<label for="idApe1">Primer apellido</label> <input
-				class="form-control" type="text" name="ape1" id="idApe1" value="${empleado.ape1}">
+				class="form-control" type="text" name="ape1" id="idApe1"
+				value="${ape1}">
 		</div>
 		<div class="form-group">
 			<label for="idApe2">Segundo apellido</label> <input
-				class="form-control" type="text" name="ape2" id="idApe2" value="${empleado.ape2}">
+				class="form-control" type="text" name="ape2" id="idApe2"
+				value="${ape2}">
 		</div>
 		<div class="form-group">
 			<label for="idTlf">Teléfono</label> <input class="form-control"
-				type="text" name="tlf" id="idTlf" value="${empleado.tlf}">
+				type="text" name="tlf" id="idTlf" value="${tlf}">
 		</div>
-		<input type="hidden" name="empMod" value="${empleado.id}">
+		<input type="hidden" name="empMod" value="${id}">
 		<div class="form-group">
-			<label for="idCiudad">Ciudad de nacimiento</label> 
-			<select	name="idCiudad">
-			<c:forEach var="ciudad" items="${ciudades}">
-			 ${select} = ${ciudad.nombre}==${empleado.ciudad.nombre}?"selected='selected'":''
-				<option ${select}>value="${ciudad.id}"> ${ciudad.nombre}</option>
-			</c:forEach>
-			
+			<label for="idCiudad">Ciudad de nacimiento</label> <select
+				name="idCiudad">
+				<c:forEach var="ciudad" items="${ciudades}">
+
+					<c:choose>
+						<c:when test="${nombreCiudad==ciudad.nombre}">
+							<option value="${ciudad.id}" selected="selected">${nombreCiudad}</option>
+						</c:when>
+						<c:when test="${nombreCiudad!=ciudad.nombre}">
+							<option value="${ciudad.id}">${ciudad.nombre}</option>
+						</c:when>
+					</c:choose>
+
+				</c:forEach>
+
 			</select>
-			
-			
+
+
 			<div class="form-group">
 				<fieldset>
 					<legend>Lenguajes de programación que conoce</legend>
-					<?php foreach ($body['lenguajes']as $lenguaje):?>
-						<?php
-						$check ='';
-						foreach ($body['empleado']->sharedLenguajeList as $leng){
-						if($lenguaje->nombre == $leng->nombre){
-							$check='checked="checked"';	
-						}
-						}?>
-					<input id="id<?=$lenguaje['id']?>" <?=$check?> type="checkbox" value="<?= $lenguaje['id'] ?>" name="idsLenguaje[]">
-					<label for="id<?= $lenguaje['id']?>"><?=$lenguaje['nombre'] ?></label>
-					<?php endforeach;?>
+					<c:forEach var="lenguaje" items="${lenguajes}">
+						<c:choose>
+						
+							<c:when test="${lenguajesElegidos==lenguaje.nombre}">
+								<input id="id${lenguaje.id}" type="checkbox"
+									value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
+								<label for="id${lenguaje.id}">${lenguajesElegidos}</label>
+							</c:when>
+							<c:when test="${lenguajesElegidos!=lenguaje.nombre}">
+								<input id="id${lenguaje.id}" type="checkbox"
+									value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
+								<label for="id${lenguaje.id}">${lenguaje.nombre}</label>
+							</c:when>
+						</c:choose>
+
+					</c:forEach>
 				</fieldset>
 			</div>
 		</div>

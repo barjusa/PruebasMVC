@@ -81,8 +81,34 @@ public class EmpleadoController extends Controller {
 	
 	public void modificarEmpleadoPost(){
 		EmpleadoModel model = new EmpleadoModel();
-		String nombre = request.getParameter("nombre");
-		//TODO
+		Long idEmpleado = (Long.parseLong(request.getParameter("idEmple")));
+		Empleado empleado = model.getEmpleadoPorId(idEmpleado);
+		String nombre = empleado.getNombre();
+		String ape1 = empleado.getApe1();
+		String ape2= empleado.getApe2();
+		String tlf = empleado.getTlf();
+		String pwd = empleado.getPwd();
+		Ciudad ciudad = empleado.getCiudad();
+		Collection<Lenguaje> lenguajesElegidos= empleado.getLenguajes();
+		String nombreCiudad = ciudad.getNombre();
+		CiudadModel ciudadModel = new CiudadModel();
+		LenguajeModel lenguajeModel = new LenguajeModel();
+		List<Ciudad> ciudades = ciudadModel.getTodas();
+		List<Lenguaje> lenguajes = lenguajeModel.getTodos();
+		
+		datos.put("ciudades", ciudades);
+		datos.put("lenguajes", lenguajes);
+		
+		datos.put("nombre", nombre);
+		datos.put("ape1", ape1);
+		datos.put("ape2", ape2);
+		datos.put("pwd", pwd);
+		datos.put("tlf", tlf);
+		datos.put("nombreCiudad", nombreCiudad);
+		datos.put("lenguajesElegidos", lenguajesElegidos);
+		datos.put("ciudades", ciudades);
+		datos.put("lenguajes", lenguajes);
+		view("empleado/modificarEmpleado.jsp");
 	}
 
 	public void modificarPost() {

@@ -24,6 +24,10 @@ public class EmpleadoModel extends Model {
 		String patronFiltro = "%" + filtro + "%";
 		return ss.createQuery("from Empleado where nombre like :filtro").setParameter("filtro", patronFiltro).list();
 	}
+	
+	public Empleado getEmpleadoPorId(Long id) {
+		return ss.get(Empleado.class, id);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Empleado> getEmpleadoPorNombre(String nombre) {
