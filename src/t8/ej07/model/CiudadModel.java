@@ -43,5 +43,12 @@ public class CiudadModel extends Model {
 		ss.merge(p);
 		t.commit();
 	}
+	
+	public void borrarCiudad(Long id) {
+		Transaction t = ss.beginTransaction();
+		Ciudad p = (Ciudad) ss.load(Ciudad.class, id);
+		ss.delete(p);
+		t.commit();
+	}
 
 }
