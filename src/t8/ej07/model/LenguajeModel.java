@@ -44,4 +44,11 @@ public class LenguajeModel extends Model {
 		t.commit();
 	}
 
+	public void borrarLenguaje(Long id) {
+		Transaction t = ss.beginTransaction();
+		Lenguaje p = (Lenguaje) ss.load(Lenguaje.class, id);
+		ss.delete(p);
+		t.commit();		
+	}
+
 }

@@ -8,6 +8,7 @@ import org.mvc.Controller;
 
 import t8.ej07.beans.Ciudad;
 import t8.ej07.beans.Lenguaje;
+import t8.ej07.model.CiudadModel;
 import t8.ej07.model.LenguajeModel;
 
 @SuppressWarnings("serial")
@@ -63,5 +64,29 @@ public class LenguajeController extends Controller{
 		datos.put("nombreLenguaje", nombreNuevo);
 		view("lenguaje/modificarPost.jsp");
 
+	}
+	
+	public void borrarGet(){
+		LenguajeModel model = new LenguajeModel();
+		List<Lenguaje> lenguajes = model.getTodos();
+		datos.put("lenguajes", lenguajes);
+		view("lenguaje/borrarGet.jsp");
+	}
+	public void borrarBuscadosPost(){
+		LenguajeModel model = new LenguajeModel();
+		String nombre = request.getParameter("q");
+		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(nombre);
+		datos.put("lenguajees", lenguajes);
+		view("lenguaje/borrar.jsp");
+	}
+	
+	public void borrarPost(){
+		LenguajeModel model = new LenguajeModel();
+		for(String idLenguajesString:request.getParameterValues("lengDel[]")){
+			Long idLenguajeLong = Long.parseLong(idLenguajesString);
+			model.borrarLenguaje(idLenguajeLong);
+		}
+		view("lenguaje/borrarPost.jsp");
+		
 	}
 }
