@@ -36,12 +36,9 @@ public class CiudadModel extends Model {
 		return ss.get(Ciudad.class, id);
 	}
 
-	public void modificarCiudad(String nombreNuevo, Long idCiudad) {
+	public void modificarCiudad(String nombreNuevo, Long id) {
 		Transaction t = ss.beginTransaction();
-		// Ciudad ciudad = (Ciudad) ss.createQuery("from Ciudad where nombre
-		// like :nombreAntiguo").uniqueResult();
-		// Long id = ciudad.getId();
-		Ciudad p = (Ciudad) ss.get(Ciudad.class, idCiudad);
+		Ciudad p = (Ciudad) ss.get(Ciudad.class, id);
 		p.setNombre(nombreNuevo);
 		ss.merge(p);
 		t.commit();

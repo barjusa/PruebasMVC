@@ -57,12 +57,6 @@ public class EmpleadoController extends Controller {
 		try {
 			model.guardarEmpleado(empleado);
 			datos.put("nombreEmpleado", nombre);
-			/*datos.put("ape1Empleado", ape1);
-			datos.put("ape2Empleado", ape2);
-			datos.put("pwdEmpleado", pwd);
-			datos.put("tlfEmpleado", tlf);
-			datos.put("ciudadEmpleado", ciudad);
-			datos.put("lenguajesEmpleado", lenguajes);*/
 			view("empleado/crearPost.jsp");
 		} catch (Exception e) {
 			datos.put("nombreEmpleado", nombre);
@@ -75,6 +69,36 @@ public class EmpleadoController extends Controller {
 		List<Empleado> empleados = model.getTodos();
 		datos.put("empleados", empleados);
 		view("empleado/listarGet.jsp");
+
+	}
+	
+	public void modificarGet() {
+		EmpleadoModel model = new EmpleadoModel();
+		List<Empleado> empleados = model.getTodos();
+		datos.put("empleados", empleados);
+		view("empleado/modificarGet.jsp");
+	}
+	
+	public void modificarEmpleadoPost(){
+		EmpleadoModel model = new EmpleadoModel();
+		String nombre = request.getParameter("nombre");
+		//TODO
+	}
+
+	public void modificarPost() {
+		//TODO
+		String nombreAntiguo = request.getParameter("antiguo");
+		String nombreNuevo = request.getParameter("ciudad");
+		EmpleadoModel model = new EmpleadoModel();
+		List<Empleado> empleadoAntiguo = model.getEmpleadoPorNombre(nombreAntiguo);
+		Object[] empleados = empleadoAntiguo.toArray();
+		for (int i = 0; i < empleados.length; i++) {
+			Long id = ((Ciudad) empleados[i]).getId();
+			model.modificarEmpleado(nombreNuevo, id);
+		}
+		
+		datos.put("nombreCiudad", nombreNuevo);
+		view("ciudad/modificarPost.jsp");
 
 	}
 }

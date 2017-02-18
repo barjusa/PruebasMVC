@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.mvc.Controller;
 
+import t8.ej07.beans.Ciudad;
 import t8.ej07.beans.Lenguaje;
 import t8.ej07.model.LenguajeModel;
 
@@ -39,5 +40,28 @@ public class LenguajeController extends Controller{
 		datos.put("lenguajes", lenguajes);
 		view("lenguaje/listarGet.jsp");
 		
+	}
+	
+	public void modificarGet() {
+		LenguajeModel model = new LenguajeModel();
+		List<Lenguaje> lenguajes = model.getTodos();
+		datos.put("lenguajes", lenguajes);
+		view("lenguaje/modificarGet.jsp");
+	}
+
+	public void modificarPost() {
+		String nombreAntiguo = request.getParameter("antiguo");
+		String nombreNuevo = request.getParameter("lenguaje");
+		LenguajeModel model = new LenguajeModel();
+		List<Lenguaje> lenguajeAntigua = model.getLenguajePorNombre(nombreAntiguo);
+		Object[] lenguajes = lenguajeAntigua.toArray();
+		for (int i = 0; i < lenguajes.length; i++) {
+			Long id = ((Lenguaje) lenguajes[i]).getId();
+			model.modificarLenguaje(nombreNuevo, id);
+		}
+		
+		datos.put("nombreLenguaje", nombreNuevo);
+		view("lenguaje/modificarPost.jsp");
+
 	}
 }

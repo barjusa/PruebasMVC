@@ -58,8 +58,6 @@ public class CiudadController extends Controller {
 		Object[] ciudades = ciudadAntigua.toArray();
 		for (int i = 0; i < ciudades.length; i++) {
 			Long id = ((Ciudad) ciudades[i]).getId();
-			String nombreAntiguoCiudad = ((Ciudad) ciudades[i]).getNombre();
-			System.out.println("La ciudad a modificar es: " + nombreAntiguoCiudad);
 			model.modificarCiudad(nombreNuevo, id);
 		}
 		

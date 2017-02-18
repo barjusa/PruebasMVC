@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.mvc.Model;
 
+import t8.ej07.beans.Ciudad;
 import t8.ej07.beans.Empleado;
 
 public class EmpleadoModel extends Model {
@@ -23,4 +24,20 @@ public class EmpleadoModel extends Model {
 		String patronFiltro = "%" + filtro + "%";
 		return ss.createQuery("from Empleado where nombre like :filtro").setParameter("filtro", patronFiltro).list();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Empleado> getEmpleadoPorNombre(String nombre) {
+		return ss.createQuery("from Empleado where nombre = :nombre").setParameter("nombre", nombre).list();
+		//TODO
+	}
+
+	public void modificarEmpleado(String nombreNuevo, Long id) {
+		Transaction t = ss.beginTransaction();
+		Ciudad p = (Ciudad) ss.get(Ciudad.class, id);
+		p.setNombre(nombreNuevo);
+		ss.merge(p);
+		t.commit();
+		//TODO
+	}
+
 }
