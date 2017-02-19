@@ -96,8 +96,6 @@ public class EmpleadoController extends Controller {
 		List<Ciudad> ciudades = ciudadModel.getTodas();
 		List<Lenguaje> lenguajes = lenguajeModel.getTodos();
 		
-		datos.put("ciudades", ciudades);
-		datos.put("lenguajes", lenguajes);
 		
 		datos.put("nombre", nombre);
 		datos.put("ape1", ape1);

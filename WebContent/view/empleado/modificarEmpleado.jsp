@@ -45,19 +45,27 @@
 				<fieldset>
 					<legend>Lenguajes de programación que conoce</legend>
 					<c:forEach var="lenguaje" items="${lenguajes}">
-						<c:choose>
-						
-							<c:when test="${lenguajesElegidos==lenguaje.nombre}">
-								<input id="id${lenguaje.id}" type="checkbox"
-									value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
-								<label for="id${lenguaje.id}">${lenguajesElegidos}</label>
-							</c:when>
-							<c:when test="${lenguajesElegidos!=lenguaje.nombre}">
-								<input id="id${lenguaje.id}" type="checkbox"
-									value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
-								<label for="id${lenguaje.id}">${lenguaje.nombre}</label>
-							</c:when>
-						</c:choose>
+						<c:forEach var="lengEleg" items="${lenguajesElegidos}">
+
+							<c:choose>
+								<c:when test="${lengEleg.nombre==lenguaje.nombre}">
+									<input id="id${lengEleg.id}" type="checkbox"
+										value="${lengEleg.id}" name="idsLenguaje[]" checked="checked">
+									<label for="id${lengEleg.id}">${lengEleg.nombre}</label>
+								</c:when>
+								<c:when test="${lengEleg.nombre!=lenguaje.nombre}">
+									<input id="id${lenguaje.id}" type="checkbox"
+										value="${lenguaje.id}" name="idsLenguaje[]">
+									<label for="id${lenguaje.id}">${lenguaje.nombre}</label>
+								</c:when>
+
+							</c:choose>
+
+
+
+
+
+						</c:forEach>
 
 					</c:forEach>
 				</fieldset>
