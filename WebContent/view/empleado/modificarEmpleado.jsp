@@ -55,7 +55,7 @@
 							</c:if>
 
 						</c:forEach>
-						<c:choose>
+						<c:choose> 
 						<c:when test="<%=si %>">
 						<input id="id${lenguaje.id}" type="checkbox"
 							value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
