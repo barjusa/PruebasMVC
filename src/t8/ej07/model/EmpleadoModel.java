@@ -7,6 +7,7 @@ import org.mvc.Model;
 
 import t8.ej07.beans.Ciudad;
 import t8.ej07.beans.Empleado;
+import t8.ej07.beans.Lenguaje;
 
 public class EmpleadoModel extends Model {
 	public void guardarEmpleado(Empleado empleado) {
@@ -20,11 +21,15 @@ public class EmpleadoModel extends Model {
 		return ss.createQuery("from Empleado").list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Empleado> getEmpleadosFiltrados(String filtro) {
 		String patronFiltro = "%" + filtro + "%";
-		return ss.createQuery("from Empleado where nombre like :filtro").setParameter("filtro", patronFiltro).list();
+		return ss
+				.createQuery(
+						"from Empleado e where nombre like :filtro or ape1 like :filtro or ape2 like :filtro or tlf like :filtro or e.ciudad.nombre like :filtro")
+				.setParameter("filtro", patronFiltro).list();
 	}
-	
+
 	public Empleado getEmpleadoPorId(Long id) {
 		return ss.get(Empleado.class, id);
 	}
@@ -32,18 +37,23 @@ public class EmpleadoModel extends Model {
 	@SuppressWarnings("unchecked")
 	public List<Empleado> getEmpleadoPorNombre(String nombre) {
 		return ss.createQuery("from Empleado where nombre = :nombre").setParameter("nombre", nombre).list();
-		//TODO
 	}
 
-	public void modificarEmpleado(String nombreNuevo, Long id) {
+	public void modificarEmpleado(String nombre, String ape1, String ape2, String pwd, String tlf, Ciudad ciudad,
+			List<Lenguaje> lenguajes, Long id) {
 		Transaction t = ss.beginTransaction();
 		Empleado p = (Empleado) ss.get(Empleado.class, id);
-		p.setNombre(nombreNuevo);
+		p.setNombre(nombre);
+		p.setApe1(ape1);
+		p.setApe2(ape2);
+		p.setPwd(pwd);
+		p.setTlf(tlf);
+		p.setCiudad(ciudad);
+		p.setLenguajes(lenguajes);
 		ss.merge(p);
 		t.commit();
-		//TODO
 	}
-	
+
 	public void borrarEmpleado(Long id) {
 		Transaction t = ss.beginTransaction();
 		Empleado p = (Empleado) ss.load(Empleado.class, id);

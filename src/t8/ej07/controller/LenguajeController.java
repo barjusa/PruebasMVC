@@ -6,9 +6,9 @@ import javax.servlet.annotation.WebServlet;
 
 import org.mvc.Controller;
 
-import t8.ej07.beans.Ciudad;
+import t8.ej07.beans.Empleado;
 import t8.ej07.beans.Lenguaje;
-import t8.ej07.model.CiudadModel;
+import t8.ej07.model.EmpleadoModel;
 import t8.ej07.model.LenguajeModel;
 
 @SuppressWarnings("serial")
@@ -67,8 +67,9 @@ public class LenguajeController extends Controller{
 	}
 	
 	public void borrarGet(){
-		LenguajeModel model = new LenguajeModel();
-		List<Lenguaje> lenguajes = model.getTodos();
+		LenguajeModel modelLeng = new LenguajeModel();
+		List<Lenguaje> lenguajes = modelLeng.getTodos();
+		
 		datos.put("lenguajes", lenguajes);
 		view("lenguaje/borrarGet.jsp");
 	}
@@ -76,16 +77,20 @@ public class LenguajeController extends Controller{
 		LenguajeModel model = new LenguajeModel();
 		String nombre = request.getParameter("q");
 		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(nombre);
-		datos.put("lenguajees", lenguajes);
+		datos.put("lenguajes", lenguajes);
 		view("lenguaje/borrar.jsp");
 	}
 	
 	public void borrarPost(){
 		LenguajeModel model = new LenguajeModel();
+		EmpleadoModel modelEmp = new EmpleadoModel();
 		for(String idLenguajesString:request.getParameterValues("lengDel[]")){
 			Long idLenguajeLong = Long.parseLong(idLenguajesString);
 			model.borrarLenguaje(idLenguajeLong);
-		}
+		}	
+		
+		List<Empleado> empleados = modelEmp.getTodos();
+		
 		view("lenguaje/borrarPost.jsp");
 		
 	}

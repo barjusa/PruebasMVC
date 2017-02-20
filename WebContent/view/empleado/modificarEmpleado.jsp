@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
 	<h2>Introduce los datos del nuevo empleado</h2>
-	<form class="form" action="${baseURL}empleado/modificarPost"
+	<form class="form" action="${baseURL}empleado/modificar"
 		method="post">
 		<div class="form-group">
 			<label for="idNombre">Nombre</label> <input class="form-control"
 				type="text" name="nombre" id="idNombre" value="${nombre}">
+				
 		</div>
 		<div class="form-group">
 			<label for="idApe1">Primer apellido</label> <input

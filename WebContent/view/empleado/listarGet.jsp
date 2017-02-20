@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
 	<h3>Listado de empleados</h3>
-
+<form>
+	<input type="text" name="filtro" id="idFiltro" onkeyup="this.form.submit()">
+	<input type="submit" value="Filtrar">
+</form>
 	<table class="table table-striped">
 		<thead>
 

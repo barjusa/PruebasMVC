@@ -66,7 +66,10 @@ public class EmpleadoController extends Controller {
 
 	public void listarGet() {
 		EmpleadoModel model = new EmpleadoModel();
-		List<Empleado> empleados = model.getTodos();
+
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
+
 		datos.put("empleados", empleados);
 		view("empleado/listarGet.jsp");
 
@@ -96,6 +99,7 @@ public class EmpleadoController extends Controller {
 		List<Ciudad> ciudades = ciudadModel.getTodas();
 		List<Lenguaje> lenguajes = lenguajeModel.getTodos();
 
+		datos.put("id", idEmpleado);
 		datos.put("nombre", nombre);
 		datos.put("ape1", ape1);
 		datos.put("ape2", ape2);
@@ -109,19 +113,31 @@ public class EmpleadoController extends Controller {
 	}
 
 	public void modificarPost() {
-		// TODO
-		String nombreAntiguo = request.getParameter("antiguo");
-		String nombreNuevo = request.getParameter("ciudad");
-		EmpleadoModel model = new EmpleadoModel();
-		List<Empleado> empleadoAntiguo = model.getEmpleadoPorNombre(nombreAntiguo);
-		Object[] empleados = empleadoAntiguo.toArray();
-		for (int i = 0; i < empleados.length; i++) {
-			Long id = ((Ciudad) empleados[i]).getId();
-			model.modificarEmpleado(nombreNuevo, id);
+		Long id = Long.parseLong(request.getParameter("empMod"));
+		String nombre = request.getParameter("nombre");
+		String ape1 = request.getParameter("ape1");
+		String ape2 = request.getParameter("ape2");
+		String pwd = request.getParameter("pwd");
+		String tlf = request.getParameter("tlf");
+		Ciudad ciudad = new CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("idCiudad")));
+
+		List<Lenguaje> lenguajes = new ArrayList<Lenguaje>();
+		LenguajeModel lenguajeModel = new LenguajeModel();
+		for (String idLenguajesString : request.getParameterValues("idsLenguaje[]")) {
+			Long idLenguajeLong = Long.parseLong(idLenguajesString);
+			Lenguaje lenguaje = lenguajeModel.getLenguajePorId(idLenguajeLong);
+			lenguajes.add(lenguaje);
 		}
 
-		datos.put("nombreEmpleado", nombreNuevo);
-		view("ciudad/modificarPost.jsp");
+		EmpleadoModel model = new EmpleadoModel();
+		Empleado empleado = model.getEmpleadoPorId(id);
+
+		model.modificarEmpleado(nombre, ape1, ape2, pwd, tlf, ciudad, lenguajes, id);
+
+		datos.put("nombre", nombre);
+		datos.put("ape1", ape1);
+		datos.put("ape2", ape2);
+		view("empleado/modificarPost.jsp");
 
 	}
 

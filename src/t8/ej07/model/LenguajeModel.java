@@ -1,11 +1,13 @@
 package t8.ej07.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Transaction;
 import org.mvc.Model;
 
 import t8.ej07.beans.Ciudad;
+import t8.ej07.beans.Empleado;
 import t8.ej07.beans.Lenguaje;
 
 public class LenguajeModel extends Model {
@@ -47,8 +49,9 @@ public class LenguajeModel extends Model {
 	public void borrarLenguaje(Long id) {
 		Transaction t = ss.beginTransaction();
 		Lenguaje p = (Lenguaje) ss.load(Lenguaje.class, id);
+
 		ss.delete(p);
-		t.commit();		
+		t.commit();
 	}
 
 }
