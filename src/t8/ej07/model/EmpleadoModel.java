@@ -37,11 +37,18 @@ public class EmpleadoModel extends Model {
 
 	public void modificarEmpleado(String nombreNuevo, Long id) {
 		Transaction t = ss.beginTransaction();
-		Ciudad p = (Ciudad) ss.get(Ciudad.class, id);
+		Empleado p = (Empleado) ss.get(Empleado.class, id);
 		p.setNombre(nombreNuevo);
 		ss.merge(p);
 		t.commit();
 		//TODO
+	}
+	
+	public void borrarEmpleado(Long id) {
+		Transaction t = ss.beginTransaction();
+		Empleado p = (Empleado) ss.load(Empleado.class, id);
+		ss.delete(p);
+		t.commit();
 	}
 
 }

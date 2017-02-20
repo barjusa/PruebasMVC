@@ -46,19 +46,29 @@
 					<legend>Lenguajes de programación que conoce</legend>
 
 					<c:forEach var="lenguaje" items="${lenguajes}">
-
+					<%boolean si = false; %>
 						<c:forEach var="lengEleg" items="${lenguajesElegidos}">
 
 							<c:if test="${lenguaje.nombre==lengEleg.nombre}">
-								<input id="id${lengEleg.id}" type="checkbox"
-									value="${lengEleg.id}" name="idsLenguaje[]" checked="checked">
-								<label for="id${lengEleg.id}">${lengEleg.nombre}</label>
+								<% si = true; %>
+								
 							</c:if>
 
 						</c:forEach>
+						<c:choose>
+						<c:when test="<%=si %>">
+						<input id="id${lenguaje.id}" type="checkbox"
+							value="${lenguaje.id}" name="idsLenguaje[]" checked="checked">
+						<label for="id${lenguaje.id}">${lenguaje.nombre}</label>
+						
+						</c:when>
+						<c:otherwise>
 						<input id="id${lenguaje.id}" type="checkbox"
 							value="${lenguaje.id}" name="idsLenguaje[]">
 						<label for="id${lenguaje.id}">${lenguaje.nombre}</label>
+						</c:otherwise>
+						</c:choose>
+						
 					</c:forEach>
 
 				</fieldset>

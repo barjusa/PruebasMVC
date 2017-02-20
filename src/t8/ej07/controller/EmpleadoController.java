@@ -25,13 +25,13 @@ public class EmpleadoController extends Controller {
 	public void crearGet() {
 		CiudadModel ciudadModel = new CiudadModel();
 		LenguajeModel lenguajeModel = new LenguajeModel();
-		
+
 		List<Ciudad> ciudades = ciudadModel.getTodas();
 		List<Lenguaje> lenguajes = lenguajeModel.getTodos();
-		
+
 		datos.put("ciudades", ciudades);
 		datos.put("lenguajes", lenguajes);
-		
+
 		view("empleado/crearGet.jsp");
 	}
 
@@ -40,19 +40,19 @@ public class EmpleadoController extends Controller {
 		String ape1 = request.getParameter("ape1");
 		String ape2 = request.getParameter("ape2");
 		String pwd = request.getParameter("pwd");
-		String tlf= request.getParameter("tlf");
+		String tlf = request.getParameter("tlf");
 		Ciudad ciudad = new CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("idCiudad")));
-		
+
 		List<Lenguaje> lenguajes = new ArrayList<Lenguaje>();
 		LenguajeModel lenguajeModel = new LenguajeModel();
-		for(String idLenguajesString:request.getParameterValues("idsLenguaje[]")){
+		for (String idLenguajesString : request.getParameterValues("idsLenguaje[]")) {
 			Long idLenguajeLong = Long.parseLong(idLenguajesString);
 			Lenguaje lenguaje = lenguajeModel.getLenguajePorId(idLenguajeLong);
 			lenguajes.add(lenguaje);
 		}
-		
+
 		Empleado empleado = new Empleado(nombre, ape1, ape2, pwd, tlf, ciudad, lenguajes);
-		
+
 		EmpleadoModel model = new EmpleadoModel();
 		try {
 			model.guardarEmpleado(empleado);
@@ -71,32 +71,31 @@ public class EmpleadoController extends Controller {
 		view("empleado/listarGet.jsp");
 
 	}
-	
+
 	public void modificarGet() {
 		EmpleadoModel model = new EmpleadoModel();
 		List<Empleado> empleados = model.getTodos();
 		datos.put("empleados", empleados);
 		view("empleado/modificarGet.jsp");
 	}
-	
-	public void modificarEmpleadoPost(){
+
+	public void modificarEmpleadoPost() {
 		EmpleadoModel model = new EmpleadoModel();
 		Long idEmpleado = (Long.parseLong(request.getParameter("idEmple")));
 		Empleado empleado = model.getEmpleadoPorId(idEmpleado);
 		String nombre = empleado.getNombre();
 		String ape1 = empleado.getApe1();
-		String ape2= empleado.getApe2();
+		String ape2 = empleado.getApe2();
 		String tlf = empleado.getTlf();
 		String pwd = empleado.getPwd();
 		Ciudad ciudad = empleado.getCiudad();
-		Collection<Lenguaje> lenguajesElegidos= empleado.getLenguajes();
+		Collection<Lenguaje> lenguajesElegidos = empleado.getLenguajes();
 		String nombreCiudad = ciudad.getNombre();
 		CiudadModel ciudadModel = new CiudadModel();
 		LenguajeModel lenguajeModel = new LenguajeModel();
 		List<Ciudad> ciudades = ciudadModel.getTodas();
 		List<Lenguaje> lenguajes = lenguajeModel.getTodos();
-		
-		
+
 		datos.put("nombre", nombre);
 		datos.put("ape1", ape1);
 		datos.put("ape2", ape2);
@@ -110,7 +109,7 @@ public class EmpleadoController extends Controller {
 	}
 
 	public void modificarPost() {
-		//TODO
+		// TODO
 		String nombreAntiguo = request.getParameter("antiguo");
 		String nombreNuevo = request.getParameter("ciudad");
 		EmpleadoModel model = new EmpleadoModel();
@@ -120,9 +119,27 @@ public class EmpleadoController extends Controller {
 			Long id = ((Ciudad) empleados[i]).getId();
 			model.modificarEmpleado(nombreNuevo, id);
 		}
-		
-		datos.put("nombreCiudad", nombreNuevo);
+
+		datos.put("nombreEmpleado", nombreNuevo);
 		view("ciudad/modificarPost.jsp");
 
 	}
+
+	public void borrarGet() {
+		EmpleadoModel model = new EmpleadoModel();
+		List<Empleado> empleados = model.getTodos();
+		datos.put("empleados", empleados);
+		view("empleado/borrarGet.jsp");
+	}
+
+	public void borrarPost() {
+		EmpleadoModel model = new EmpleadoModel();
+		for (String idEmpleadosString : request.getParameterValues("empDel[]")) {
+			Long idEmpleadoLong = Long.parseLong(idEmpleadosString);
+			model.borrarEmpleado(idEmpleadoLong);
+		}
+		view("empleado/borrarPost.jsp");
+
+	}
+
 }
