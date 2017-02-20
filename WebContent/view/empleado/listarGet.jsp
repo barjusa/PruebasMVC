@@ -1,7 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
 	<h3>Listado de empleados</h3>
-<form>
+	<script type="text/javascript">
+                 window.onload= function(){
+                         document.miForm.filtro.focus();
+                     }
+	
+</script>
+<form name="miForm">
 	<input type="text" name="filtro" id="idFiltro" onkeyup="this.form.submit()">
 	<input type="submit" value="Filtrar">
 </form>
