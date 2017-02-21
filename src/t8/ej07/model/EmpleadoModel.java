@@ -26,7 +26,7 @@ public class EmpleadoModel extends Model {
 		String patronFiltro = "%" + filtro + "%";
 		return ss
 				.createQuery(
-						"from Empleado e where nombre like :filtro or ape1 like :filtro or ape2 like :filtro or tlf like :filtro or e.ciudad.nombre like :filtro")
+						"from Empleado e where nombre like :filtro or ape1 like :filtro or ape2 like :filtro or tlf like :filtro or e.ciudad.nombre like :filtro or (select count(*) from e.lenguajes where nombre like :filtro)>0")
 				.setParameter("filtro", patronFiltro).list();
 	}
 

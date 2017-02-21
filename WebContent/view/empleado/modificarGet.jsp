@@ -1,6 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container list-group">
 	<h2>Modificar Empleados</h2>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.miForm.filtro.focus();
+		}
+	
+	
+	</script>
+	<form name="miForm" action="${baseURL}empleado/modificar">
+		<input type="text" name="filtro" id="idFiltro" value="${filtro}" onkeyup="this.form.submit();">
+		<input type="submit" value="Filtrar">
+	</form>
 <form action="${baseURL}empleado/modificarEmpleado" method="post">
 	<table class="table table-striped">
 		<thead>

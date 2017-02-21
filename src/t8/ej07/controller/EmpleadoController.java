@@ -70,6 +70,7 @@ public class EmpleadoController extends Controller {
 		String filtro = request.getParameter("filtro");
 		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
 
+		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
 		view("empleado/listarGet.jsp");
 
@@ -77,7 +78,11 @@ public class EmpleadoController extends Controller {
 
 	public void modificarGet() {
 		EmpleadoModel model = new EmpleadoModel();
-		List<Empleado> empleados = model.getTodos();
+
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
+
+		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
 		view("empleado/modificarGet.jsp");
 	}

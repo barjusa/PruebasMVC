@@ -41,7 +41,10 @@ public class CiudadController extends Controller {
 
 	public void listarGet() {
 		CiudadModel model = new CiudadModel();
-		List<Ciudad> ciudades = model.getTodas();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
+		
+		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
 		view("ciudad/listarGet.jsp");
 
@@ -49,7 +52,10 @@ public class CiudadController extends Controller {
 
 	public void modificarGet() {
 		CiudadModel model = new CiudadModel();
-		List<Ciudad> ciudades = model.getTodas();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
+		
+		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
 		view("ciudad/modificarGet.jsp");
 	}

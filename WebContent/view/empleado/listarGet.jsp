@@ -2,15 +2,30 @@
 <div class="container">
 	<h3>Listado de empleados</h3>
 	<script type="text/javascript">
-                 window.onload= function(){
-                         document.miForm.filtro.focus();
-                     }
-	
-</script>
-<form name="miForm">
-	<input type="text" name="filtro" id="idFiltro" onkeyup="this.form.submit()">
-	<input type="submit" value="Filtrar">
-</form>
+		window.onload = function() {
+			//document.miForm.filtro.focus();
+			finalFoco();
+		}
+		function finalFoco(){
+
+			var obj = document.miForm.filtro;
+
+			obj.focus();
+
+			if(obj.value!=""){
+
+				obj.value+="";
+
+			}
+
+		}
+
+		
+	</script>
+	<form name="miForm">
+		<input type="text" name="filtro" id="idFiltro" value="${filtro}" onkeyup="this.form.submit();finalFoco();">
+		<input type="submit" value="Filtrar">
+	</form>
 	<table class="table table-striped">
 		<thead>
 
