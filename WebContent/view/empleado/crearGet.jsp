@@ -18,6 +18,10 @@
 			<label for="idApe2">Segundo apellido</label> <input
 				class="form-control" type="text" name="ape2" id="idApe2">
 		</div>
+		<div class="form-group">
+			<label for="idUsu">Usuario</label> <input
+				class="form-control" type="text" name="usuario" id="idUsu">
+		</div>
 
 		<div class="form-group">
 			<label for="idPwd">Contraseña</label> <input class="form-control"

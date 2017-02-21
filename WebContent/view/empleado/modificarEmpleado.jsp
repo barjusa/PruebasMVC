@@ -18,6 +18,11 @@
 				class="form-control" type="text" name="ape2" id="idApe2"
 				value="${ape2}">
 		</div>
+		
+		<div class="form-group">
+			<label for="idPwd">Contraseña</label> <input class="form-control"
+				type="password" name="pwd" id="idPwd">
+		</div>
 		<div class="form-group">
 			<label for="idTlf">Teléfono</label> <input class="form-control"
 				type="text" name="tlf" id="idTlf" value="${tlf}">

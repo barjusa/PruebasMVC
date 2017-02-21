@@ -39,6 +39,7 @@ public class EmpleadoController extends Controller {
 		String nombre = request.getParameter("nombre");
 		String ape1 = request.getParameter("ape1");
 		String ape2 = request.getParameter("ape2");
+		String usu = request.getParameter("usuario");
 		String pwd = request.getParameter("pwd");
 		String tlf = request.getParameter("tlf");
 		Ciudad ciudad = new CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("idCiudad")));
@@ -51,7 +52,7 @@ public class EmpleadoController extends Controller {
 			lenguajes.add(lenguaje);
 		}
 
-		Empleado empleado = new Empleado(nombre, ape1, ape2, pwd, tlf, ciudad, lenguajes);
+		Empleado empleado = new Empleado(nombre, ape1, ape2, usu, pwd, tlf, ciudad, lenguajes);
 
 		EmpleadoModel model = new EmpleadoModel();
 		try {

@@ -18,11 +18,10 @@ public class Empleado {
 	private String ape1;
 	private String ape2;
 	private String pwd;
+	private String usu;
 	private String tlf;
 	private Ciudad ciudad;
 	private Collection<Lenguaje> lenguajes;
-
-	
 
 	@Id
 	@GeneratedValue
@@ -33,27 +32,38 @@ public class Empleado {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Empleado() {
-		this.lenguajes=new ArrayList<Lenguaje>();
+		this.lenguajes = new ArrayList<Lenguaje>();
 	}
 
-	public Empleado(String nombre,String ape1, String ape2, String pwd, String tlf, Ciudad ciudad, Collection<Lenguaje> lenguajes) {
+	public Empleado(String nombre, String ape1, String ape2, String pwd, String tlf, String usu, Ciudad ciudad,
+			Collection<Lenguaje> lenguajes) {
 		super();
 		this.nombre = nombre;
 		this.ape1 = ape1;
 		this.ape2 = ape2;
 		this.pwd = pwd;
+		
 		this.tlf = tlf;
+		this.usu = usu;
 		this.ciudad = ciudad;
 		this.ciudad.addToEmpleados(this);
 		this.lenguajes = lenguajes;
-		for(Lenguaje lenguaje:lenguajes){
+		for (Lenguaje lenguaje : lenguajes) {
 			lenguaje.addToEmpleados(this);
 		}
 	}
-
 	@Column(unique = true)
+	public String getUsu() {
+		return usu;
+	}
+
+	public void setUsu(String usu) {
+		this.usu = usu;
+	}
+
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -61,6 +71,7 @@ public class Empleado {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getApe1() {
 		return ape1;
 	}
@@ -92,6 +103,7 @@ public class Empleado {
 	public void setTlf(String tlf) {
 		this.tlf = tlf;
 	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	public Ciudad getCiudad() {
 		return ciudad;
@@ -100,7 +112,7 @@ public class Empleado {
 	public void setCiudad(Ciudad ciudad) {
 		this.ciudad = ciudad;
 	}
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	public Collection<Lenguaje> getLenguajes() {
 		return lenguajes;
