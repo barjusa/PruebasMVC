@@ -37,16 +37,15 @@ public class Empleado {
 		this.lenguajes = new ArrayList<Lenguaje>();
 	}
 
-	public Empleado(String nombre, String ape1, String ape2, String pwd, String tlf, String usu, Ciudad ciudad,
+	public Empleado(String nombre, String ape1, String ape2, String usu, String pwd, String tlf, Ciudad ciudad,
 			Collection<Lenguaje> lenguajes) {
 		super();
 		this.nombre = nombre;
 		this.ape1 = ape1;
 		this.ape2 = ape2;
-		this.pwd = pwd;
-		
-		this.tlf = tlf;
 		this.usu = usu;
+		this.pwd = pwd;
+		this.tlf = tlf;
 		this.ciudad = ciudad;
 		this.ciudad.addToEmpleados(this);
 		this.lenguajes = lenguajes;
@@ -54,6 +53,7 @@ public class Empleado {
 			lenguaje.addToEmpleados(this);
 		}
 	}
+
 	@Column(unique = true)
 	public String getUsu() {
 		return usu;
@@ -63,7 +63,6 @@ public class Empleado {
 		this.usu = usu;
 	}
 
-	
 	public String getNombre() {
 		return nombre;
 	}
