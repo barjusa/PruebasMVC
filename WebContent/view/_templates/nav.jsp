@@ -72,7 +72,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<c:choose>
-						<c:when test="${empty headerEmpleadoNombre}">
+						<c:when test="${empty empleadoNombre}">
 							<li class="dropdown"><a class="dropdown-toggle"
 								data-toggle="dropdown" href="#"> Acceso<span class="caret"></span>
 							</a>
@@ -97,8 +97,20 @@
 									</li>
 						</c:when>
 						<c:otherwise>
-					${headerEmpleadoNombre} ${headerEmpleadoApe1}<a
-								href="${baseURL}empleado/logout">LOGOUT</a>
+					
+					<li class="dropdown"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#"> ${empleadoNombre} ${empleadoApe1}<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-header">Usuario</li>
+									<li>
+										<form class="form" action="${baseURL}empleado/logout" id="formulario">
+											<div class="form-group">
+												<input class="form-control" type="submit" value="Logout">
+											</div>
+										</form>
+									</li>
+					
 						</c:otherwise>
 					</c:choose>
 					<!-- M�s beans y m�s acciones -->
@@ -113,7 +125,7 @@
 
 
 
-	
+
 
 
 

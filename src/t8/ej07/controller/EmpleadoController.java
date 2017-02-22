@@ -1,5 +1,6 @@
 package t8.ej07.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -97,10 +98,13 @@ public class EmpleadoController extends Controller {
 		String filtro = request.getParameter("filtro");
 
 		HttpSession sesion = request.getSession(true);
-		/*String headerEmpleadoNombre = (String) sesion.getAttribute(headerEmpleadoNombre);
-		String headerEmpleadoApe1 = (String) sesion.getAttribute(headerEmpleadoApe1);
-		datos.put("headerEmpleadoNombre", headerEmpleadoNombre);
-		datos.put("headerEmpleadoApe1", headerEmpleadoApe1);*/
+		/*
+		 * String headerEmpleadoNombre = (String)
+		 * sesion.getAttribute(headerEmpleadoNombre); String headerEmpleadoApe1
+		 * = (String) sesion.getAttribute(headerEmpleadoApe1);
+		 * datos.put("headerEmpleadoNombre", headerEmpleadoNombre);
+		 * datos.put("headerEmpleadoApe1", headerEmpleadoApe1);
+		 */
 
 		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
 
@@ -115,8 +119,8 @@ public class EmpleadoController extends Controller {
 	}
 
 	public void loginPost() {
-		String usuario= request.getParameter("nombre");
-		String pwd= request.getParameter("pass");
+		String usuario = request.getParameter("nombre");
+		String pwd = request.getParameter("pass");
 		EmpleadoModel model = new EmpleadoModel();
 		if (model.credencialesUsuarioCorrectas(usuario, pwd)) {
 			HttpSession ss = request.getSession(true);
@@ -127,6 +131,19 @@ public class EmpleadoController extends Controller {
 			view("empleado/loginOK.jsp");
 		} else {
 			view("empleado/loginERROR.jsp");
+		}
+	}
+
+	public void logoutGet() {
+		HttpSession ss = request.getSession(true);
+		ss.removeAttribute("empleadoId");
+		ss.removeAttribute("empleadoNombre");
+		ss.removeAttribute("empleadoApe1");
+		try {
+			response.sendRedirect(baseURL + "home");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
