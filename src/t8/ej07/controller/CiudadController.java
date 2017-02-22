@@ -43,20 +43,21 @@ public class CiudadController extends Controller {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
 		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
-		
+
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
 		view("ciudad/listarGet.jsp");
 
 	}
+
 	public void listarAjaxGet() {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
 		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
-		
+
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
-		view("ciudad/listarAjax.jsp",false);
+		view("ciudad/listarAjax.jsp", false);
 
 	}
 
@@ -64,20 +65,20 @@ public class CiudadController extends Controller {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
 		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
-		
+
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
 		view("ciudad/modificarGet.jsp");
 	}
-	
+
 	public void modificarAjaxGet() {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
 		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
-		
+
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
-		view("ciudad/modificarAjax.jsp",false);
+		view("ciudad/modificarAjax.jsp", false);
 	}
 
 	public void modificarPost() {
@@ -90,34 +91,48 @@ public class CiudadController extends Controller {
 			Long id = ((Ciudad) ciudades[i]).getId();
 			model.modificarCiudad(nombreNuevo, id);
 		}
-		
+
 		datos.put("nombreCiudad", nombreNuevo);
 		view("ciudad/modificarPost.jsp");
 
 	}
-	
-	public void borrarGet(){
+
+	public void borrarGet() {
 		CiudadModel model = new CiudadModel();
-		List<Ciudad> ciudades = model.getTodas();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
+
+		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
 		view("ciudad/borrarGet.jsp");
 	}
-	public void borrarBuscadosPost(){
+
+	public void borrarAjaxGet() {
+		CiudadModel model = new CiudadModel();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
+
+		datos.put("filtro", filtro);
+		datos.put("ciudades", ciudades);
+		view("ciudad/borrarAjax.jsp", false);
+	}
+
+	public void borrarBuscadosPost() {
 		CiudadModel model = new CiudadModel();
 		String nombre = request.getParameter("q");
 		List<Ciudad> ciudades = model.getCiudadesFiltradas(nombre);
 		datos.put("ciudades", ciudades);
 		view("ciudad/borrar.jsp");
 	}
-	
-	public void borrarPost(){
+
+	public void borrarPost() {
 		CiudadModel model = new CiudadModel();
-		for(String idCiudadesString:request.getParameterValues("ciuDel[]")){
+		for (String idCiudadesString : request.getParameterValues("ciuDel[]")) {
 			Long idCiudadLong = Long.parseLong(idCiudadesString);
 			model.borrarCiudad(idCiudadLong);
 		}
 		view("ciudad/borrarPost.jsp");
-		
+
 	}
-	
+
 }

@@ -96,11 +96,23 @@ public class LenguajeController extends Controller {
 	}
 
 	public void borrarGet() {
-		LenguajeModel modelLeng = new LenguajeModel();
-		List<Lenguaje> lenguajes = modelLeng.getTodos();
-
+		LenguajeModel model = new LenguajeModel();
+		String filtro = request.getParameter("filtro");
+		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro == null ? "" : filtro);
+		
+		datos.put("filtro", filtro);
 		datos.put("lenguajes", lenguajes);
 		view("lenguaje/borrarGet.jsp");
+	}
+	public void borrarAjaxGet() {
+		LenguajeModel model = new LenguajeModel();
+		String filtro = request.getParameter("filtro");
+		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro == null ? "" : filtro);
+		
+		datos.put("filtro", filtro);
+
+		datos.put("lenguajes", lenguajes);
+		view("lenguaje/borrarAjax.jsp",false);
 	}
 
 	public void borrarBuscadosPost() {
