@@ -1,22 +1,46 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
-	<h2>Modificar Lenguajes</h2>
-	<hr>
+	<h2>Modificar lenguajes</h2>
+	<script type="text/javascript">
+		var XMLHttpRequestObject = false;
+		if (window.XMLHttpRequest) {
+			XMLHttpRequestObject = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		function compruebaDatos() {
+			datos = document.getElementById('idFiltro').value;
+			if (datos == null) {
+				pedirDatos("${baseURL}lenguaje/modificarAjax", datos);
+			} else {
+				pedirDatos("${baseURL}lenguaje/modificarAjax", datos);
+			}
+		}
+
+		function pedirDatos(fuenteDatos, valorParam) {
+			if (XMLHttpRequestObject) {
+				XMLHttpRequestObject.open("GET", fuenteDatos + '?filtro='
+						+ valorParam);
+				XMLHttpRequestObject.onreadystatechange = tratarRespuesta;
+				XMLHttpRequestObject.send(null);
+			}
+
+		}
+
+		function tratarRespuesta() {
+			if (XMLHttpRequestObject.readyState == 4
+					&& XMLHttpRequestObject.status == 200) {
+				document.getElementById("lenguajes").innerHTML = XMLHttpRequestObject.responseText;
+			}
+		}
+	</script>
+	<form name="miForm">
+		Filtrar: <input type="text" name="filtro" id="idFiltro"
+			value="${filtro}" onkeyup="compruebaDatos();">
+	</form>
 	<table>
-		<c:forEach var="lenguaje" items="${lenguajes}">
-
-		<tr>
-			<td><h3>
-					${lenguaje.nombre}
-				</h3></td>
-			<td style="padding-left: 20px;"><button data-toggle="modal"
-					data-target="#myModal" onclick="editar('${lenguaje.nombre}')"
-					class="btn btn-primary btn-md">
-					Editar <span class="glyphicon glyphicon-edit"></span>
-				</button></td>
-		</tr>
-
-		</c:forEach>
+		<thead id="lenguajes"></thead>
 	</table>
 
 </div>
@@ -46,14 +70,14 @@
 
 	</div>
 </div>
-
+<script>
+	compruebaDatos();
+</script>
 
 <script type="text/javascript">
-
-	function editar (lenguaje){
-document.getElementById('edicion').value=lenguaje;
-document.getElementById('hid').value=lenguaje;
+	function editar(lenguaje) {
+		document.getElementById('edicion').value = lenguaje;
+		document.getElementById('hid').value = lenguaje;
 
 	}
-
 </script>

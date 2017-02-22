@@ -32,18 +32,11 @@
 			if (XMLHttpRequestObject.readyState == 4
 					&& XMLHttpRequestObject.status == 200) {
 				document.getElementById("ciudades").innerHTML = XMLHttpRequestObject.responseText;
-				//listaCiudades = XMLHttpRequestObject.responseText.split(",");
-				//lista = '';
-				//console.log(listaCiudades);
-				//for (i = 0; i < listaCiudades.length; i++) {
-					//lista += '<td>' + listaCiudades[i] + '</td>';
-					//document.getElementById("ciudades").innerHTML = lista;
-			//	}
 			}
 		}
 	</script>
 	<form name="miForm">
-		<input type="text" name="filtro" id="idFiltro" value="${filtro}"
+		Filtrar: <input type="text" name="filtro" id="idFiltro" value="${filtro}"
 			onkeyup="compruebaDatos();">
 	</form>
 	<table>

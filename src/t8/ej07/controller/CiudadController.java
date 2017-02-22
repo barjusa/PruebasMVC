@@ -69,6 +69,16 @@ public class CiudadController extends Controller {
 		datos.put("ciudades", ciudades);
 		view("ciudad/modificarGet.jsp");
 	}
+	
+	public void modificarAjaxGet() {
+		CiudadModel model = new CiudadModel();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
+		
+		datos.put("filtro", filtro);
+		datos.put("ciudades", ciudades);
+		view("ciudad/modificarAjax.jsp",false);
+	}
 
 	public void modificarPost() {
 		String nombreAntiguo = request.getParameter("antigua");
