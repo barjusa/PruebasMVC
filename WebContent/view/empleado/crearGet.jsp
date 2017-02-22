@@ -5,12 +5,12 @@
 	<form class="form" method="post" id="formularioCrear">
 
 		<div class="form-group">
-			<label for="idNombre">Nombre</label> <input class="form-control"
+			<label for="idNombre">Nombre *</label> <input class="form-control"
 				type="text" name="nombre" id="idNombre">
 		</div>
 
 		<div class="form-group">
-			<label for="idApe1">Primer apellido</label> <input
+			<label for="idApe1">Primer apellido *</label> <input
 				class="form-control" type="text" name="ape1" id="idApe1">
 		</div>
 
@@ -19,12 +19,12 @@
 				class="form-control" type="text" name="ape2" id="idApe2">
 		</div>
 		<div class="form-group">
-			<label for="idUsu">Usuario</label> <input
+			<label for="idUsu">Usuario *</label> <input
 				class="form-control" type="text" name="usuario" id="idUsu">
 		</div>
 
 		<div class="form-group">
-			<label for="idPwd">Contraseña</label> <input class="form-control"
+			<label for="idPwd">Contraseña *</label> <input class="form-control"
 				type="password" name="pwd" id="idPwd">
 		</div>
 

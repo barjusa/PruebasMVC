@@ -36,31 +36,56 @@ public class EmpleadoController extends Controller {
 	}
 
 	public void crearPost() {
-		String nombre = request.getParameter("nombre");
-		String ape1 = request.getParameter("ape1");
-		String ape2 = request.getParameter("ape2");
-		String usu = request.getParameter("usuario");
-		String pwd = request.getParameter("pwd");
-		String tlf = request.getParameter("tlf");
-		Ciudad ciudad = new CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("idCiudad")));
-
+		String nombre = null;
+		String ape1 = null;
+		String ape2 = null;
+		String usu = null;
+		String pwd = null;
+		String tlf = null;
+		Ciudad ciudad = null;
 		List<Lenguaje> lenguajes = new ArrayList<Lenguaje>();
-		LenguajeModel lenguajeModel = new LenguajeModel();
-		for (String idLenguajesString : request.getParameterValues("idsLenguaje[]")) {
-			Long idLenguajeLong = Long.parseLong(idLenguajesString);
-			Lenguaje lenguaje = lenguajeModel.getLenguajePorId(idLenguajeLong);
-			lenguajes.add(lenguaje);
-		}
 
-		Empleado empleado = new Empleado(nombre, ape1, ape2, usu, pwd, tlf, ciudad, lenguajes);
-
-		EmpleadoModel model = new EmpleadoModel();
 		try {
-			model.guardarEmpleado(empleado);
-			datos.put("nombreEmpleado", nombre);
-			view("empleado/crearPost.jsp");
+			nombre = request.getParameter("nombre");
+			ape1 = request.getParameter("ape1");
+			ape2 = request.getParameter("ape2");
+			usu = request.getParameter("usuario");
+			pwd = request.getParameter("pwd");
+			tlf = request.getParameter("tlf");
+			ciudad = new CiudadModel().getCiudadPorId(Long.parseLong(request.getParameter("idCiudad")));
+			LenguajeModel lenguajeModel = new LenguajeModel();
+			String[] lenguajesSeleccionados = request.getParameterValues("idsLenguaje[]");
+			lenguajesSeleccionados = (lenguajesSeleccionados == null ? new String[0] : lenguajesSeleccionados);
+			for (String idLenguajesString : lenguajesSeleccionados) {
+				Long idLenguajeLong = Long.parseLong(idLenguajesString);
+				Lenguaje lenguaje = lenguajeModel.getLenguajePorId(idLenguajeLong);
+				lenguajes.add(lenguaje);
+			}
+			if (nombre == null || nombre.equals("")) {
+				throw new Exception("El nombre no puede ser nulo");
+			}
+			if (ape1 == null || ape1.equals("")) {
+				throw new Exception("El primer apellido no puede ser nulo");
+			}
+			if (usu == null || usu.equals("")) {
+				throw new Exception("El nombre de usuario no puede ser nulo");
+			}
+			if (pwd == null || pwd.equals("")) {
+				throw new Exception("La contraseña no puede ser nula");
+			}
+			Empleado empleado = new Empleado(nombre, ape1, ape2, usu, pwd, tlf, ciudad, lenguajes);
+
+			EmpleadoModel model = new EmpleadoModel();
+			try {
+				model.guardarEmpleado(empleado);
+				datos.put("nombreEmpleado", nombre);
+				view("empleado/crearPost.jsp");
+			} catch (Exception e) {
+				datos.put("nombreEmpleado", nombre);
+				view("empleado/crearError.jsp");
+			}
 		} catch (Exception e) {
-			datos.put("nombreEmpleado", nombre);
+			datos.put("mensaje",e.getMessage());
 			view("empleado/crearError.jsp");
 		}
 	}
@@ -99,7 +124,7 @@ public class EmpleadoController extends Controller {
 		datos.put("empleados", empleados);
 		view("empleado/modificarGet.jsp");
 	}
-	
+
 	public void modificarAjaxGet() {
 		EmpleadoModel model = new EmpleadoModel();
 
@@ -108,7 +133,7 @@ public class EmpleadoController extends Controller {
 
 		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
-		view("empleado/modificarAjax.jsp",false);
+		view("empleado/modificarAjax.jsp", false);
 	}
 
 	public void modificarEmpleadoPost() {
@@ -179,7 +204,7 @@ public class EmpleadoController extends Controller {
 		datos.put("empleados", empleados);
 		view("empleado/borrarGet.jsp");
 	}
-	
+
 	public void borrarAjaxGet() {
 		EmpleadoModel model = new EmpleadoModel();
 		String filtro = request.getParameter("filtro");
@@ -187,7 +212,7 @@ public class EmpleadoController extends Controller {
 
 		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
-		view("empleado/borrarAjax.jsp",false);
+		view("empleado/borrarAjax.jsp", false);
 	}
 
 	public void borrarPost() {

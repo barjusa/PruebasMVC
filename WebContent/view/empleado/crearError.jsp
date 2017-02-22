@@ -1,5 +1,6 @@
 <div class="container">
-	El empleado <b>${nombreEmpleado}</b> ya existe
-	<br/>
+	<div class="container alert alert-danger">
+		<strong>${mensaje}</strong>
+	</div>
 	<a href="${baseURL}empleado/crear">Volver</a>
 </div>
