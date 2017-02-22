@@ -76,6 +76,17 @@ public class EmpleadoController extends Controller {
 		view("empleado/listarGet.jsp");
 
 	}
+	public void listarAjaxGet() {
+		EmpleadoModel model = new EmpleadoModel();
+
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
+
+		datos.put("filtro", filtro);
+		datos.put("empleados", empleados);
+		view("empleado/listarGet.jsp",false);
+
+	}
 
 	public void modificarGet() {
 		EmpleadoModel model = new EmpleadoModel();

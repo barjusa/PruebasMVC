@@ -49,6 +49,16 @@ public class CiudadController extends Controller {
 		view("ciudad/listarGet.jsp");
 
 	}
+	public void listarAjaxGet() {
+		CiudadModel model = new CiudadModel();
+		String filtro = request.getParameter("filtro");
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
+		
+		datos.put("filtro", filtro);
+		datos.put("ciudades", ciudades);
+		view("ciudad/listarAjax.jsp",false);
+
+	}
 
 	public void modificarGet() {
 		CiudadModel model = new CiudadModel();

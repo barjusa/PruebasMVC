@@ -26,7 +26,7 @@ public class LenguajeModel extends Model {
 	@SuppressWarnings("unchecked")
 	public List<Lenguaje> getLenguajeFiltrados(String filtro) {
 		String patronFiltro = "%" + filtro + "%";
-		return ss.createQuery("from lenguaje where nombre like:filtro").setParameter("filtro", patronFiltro).list();
+		return ss.createQuery("from Lenguaje where nombre like :filtro").setParameter("filtro", patronFiltro).list();
 
 	}
 
