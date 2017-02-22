@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <nav class="container navbar navbar-inverse">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="#">CRUD Empleados</a>
@@ -18,7 +18,7 @@
 
 
 
-					<!-- M�s beans y m�s acciones -->
+					<!-- Mï¿½s beans y mï¿½s acciones -->
 
 				</ul></li>
 
@@ -35,7 +35,7 @@
 					<li><a href="${baseURL}lenguaje/borrar">Borrar</a></li>
 
 
-					<!-- M�s beans y m�s acciones -->
+					<!-- Mï¿½s beans y mï¿½s acciones -->
 
 				</ul></li>
 
@@ -51,7 +51,7 @@
 					<li><a href="${baseURL}empleado/borrar">Borrar</a></li>
 
 
-					<!-- M�s beans y m�s acciones -->
+					<!-- Mï¿½s beans y mï¿½s acciones -->
 
 				</ul></li>
 
@@ -63,10 +63,58 @@
 
 
 
-			<!-- M�s men�s -->
+			<!-- Mas menus -->
 
 		</ul>
-		
+
+
+		<ul class="nav navbar-nav navbar-right">
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<c:choose>
+						<c:when test="${empty headerEmpleadoNombre}">
+							<li class="dropdown"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#"> Acceso<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-header">Usuario</li>
+									<li>
+										<form class="form" action="${baseURL}empleado/login"
+											method="post" id="formulario">
+											<div class="form-group">
+												<label for="idNombre">Usuario</label> <input
+													class="form-control" type="text" name="nombre"
+													id="idNombre">
+											</div>
+											<div class="form-group">
+												<label for="idpwd">Contrase�a</label> <input
+													class="form-control" type="password" name="pass" id="idPwd">
+											</div>
+											<div class="form-group">
+												<input class="form-control" type="submit" value="Login">
+											</div>
+										</form>
+									</li>
+						</c:when>
+						<c:otherwise>
+					${headerEmpleadoNombre} ${headerEmpleadoApe1}<a
+								href="${baseURL}empleado/logout">LOGOUT</a>
+						</c:otherwise>
+					</c:choose>
+					<!-- M�s beans y m�s acciones -->
+				</ul>
+				</li>
+		</ul>
+
+
+
+	</div>
+	</ul>
+
+
+
+	
+
 
 
 	</div>
