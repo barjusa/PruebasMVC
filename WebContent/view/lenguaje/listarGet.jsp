@@ -44,8 +44,7 @@
 	</script>
 	<form name="miForm">
 		<input type="text" name="filtro" id="idFiltro" value="${filtro}"
-			onkeyup="compruebaDatos();"> <input type="submit"
-			value="Filtrar">
+			onkeyup="compruebaDatos();">
 	</form>
 	<table>
 		<thead>
@@ -57,6 +56,6 @@
 
 		</tbody>
 	</table>
-
+<script>compruebaDatos();</script>
 
 </div>

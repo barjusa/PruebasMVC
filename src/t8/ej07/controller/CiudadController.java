@@ -52,7 +52,7 @@ public class CiudadController extends Controller {
 	public void listarAjaxGet() {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
-		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
 		
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);
@@ -63,7 +63,7 @@ public class CiudadController extends Controller {
 	public void modificarGet() {
 		CiudadModel model = new CiudadModel();
 		String filtro = request.getParameter("filtro");
-		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro);
+		List<Ciudad> ciudades = model.getCiudadesFiltradas(filtro == null ? "" : filtro);
 		
 		datos.put("filtro", filtro);
 		datos.put("ciudades", ciudades);

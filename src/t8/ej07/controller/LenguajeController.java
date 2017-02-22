@@ -38,7 +38,7 @@ public class LenguajeController extends Controller{
 	public void listarGet(){
 		LenguajeModel model = new LenguajeModel();
 		String filtro = request.getParameter("filtro");
-		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro);
+		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro == null ? "" : filtro);
 		
 		datos.put("filtro", filtro);
 		datos.put("lenguajes", lenguajes);
@@ -49,7 +49,7 @@ public class LenguajeController extends Controller{
 	public void listarAjaxGet(){
 		LenguajeModel model = new LenguajeModel();
 		String filtro = request.getParameter("filtro");
-		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro);
+		List<Lenguaje> lenguajes = model.getLenguajeFiltrados(filtro == null ? "" : filtro);
 		
 		datos.put("filtro", filtro);
 		datos.put("lenguajes", lenguajes);
