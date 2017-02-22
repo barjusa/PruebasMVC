@@ -56,38 +56,53 @@
 		<ul class="nav navbar-nav navbar-right">
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
+					<c:choose>
+						<c:when test="${empty empleadoNombre}">
+							<li class="dropdown"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#"> Acceso<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-header">Usuario</li>
+									<li>
+										<form class="form" action="${baseURL}empleado/login"
+											method="post" id="formulario">
+											<div class="form-group">
+												<label for="idNombre">Usuario</label> <input
+													class="form-control" type="text" name="nombre"
+													id="idNombre">
+											</div>
+											<div class="form-group">
+												<label for="idpwd">Contraseña</label> <input
+													class="form-control" type="password" name="pass" id="idPwd">
+											</div>
+											<div class="form-group">
+												<input class="form-control" type="submit" value="Login">
+											</div>
+										</form>
+									</li>
+						</c:when>
+						<c:otherwise>
+					
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> Acceso<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li class="dropdown-header">Usuario</li>
-							<li>
-								<form class="form" action="${baseURL}empleado/login"
-									method="post" id="formulario">
-									<div class="form-group">
-										<label for="idNombre">Usuario</label> <input
-											class="form-control" type="text" name="nombre" id="idNombre">
-									</div>
-									<div class="form-group">
-										<label for="idpwd">Contraseña</label> <input
-											class="form-control" type="password" name="pass" id="idPwd">
-									</div>
-									<div class="form-group">
-										<input class="form-control" type="submit" value="Login">
-									</div>
-								</form>
-							</li>
-
-							<!-- Mï¿½s beans y mï¿½s acciones -->
-
-						</ul></li>
-
+								data-toggle="dropdown" href="#"> ${empleadoNombre} ${empleadoApe1}<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-header">Usuario</li>
+									<li>
+										<form class="form" action="${baseURL}empleado/logout" id="formulario">
+											<div class="form-group">
+												<input class="form-control" type="submit" value="Logout">
+											</div>
+										</form>
+									</li>
+					
+						</c:otherwise>
+					</c:choose>
+					<!-- Mï¿½s beans y mï¿½s acciones -->
 				</ul>
-
-
-
-			</div>
+				</li>
 		</ul>
+
 
 
 	</div>
