@@ -97,10 +97,10 @@ public class EmpleadoController extends Controller {
 		String filtro = request.getParameter("filtro");
 
 		HttpSession sesion = request.getSession(true);
-		String headerEmpleadoNombre = (String) sesion.getAttribute(headerEmpleadoNombre);
+		/*String headerEmpleadoNombre = (String) sesion.getAttribute(headerEmpleadoNombre);
 		String headerEmpleadoApe1 = (String) sesion.getAttribute(headerEmpleadoApe1);
 		datos.put("headerEmpleadoNombre", headerEmpleadoNombre);
-		datos.put("headerEmpleadoApe1", headerEmpleadoApe1);
+		datos.put("headerEmpleadoApe1", headerEmpleadoApe1);*/
 
 		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
 
@@ -124,8 +124,9 @@ public class EmpleadoController extends Controller {
 			ss.setAttribute("empleadoId", empleado.getId());
 			ss.setAttribute("empleadoNombre", empleado.getNombre());
 			ss.setAttribute("empleadoApe1", empleado.getApe1());
+			view("empleado/loginOK.jsp");
 		} else {
-			// LOGIN ERROR
+			view("empleado/loginERROR.jsp");
 		}
 	}
 
