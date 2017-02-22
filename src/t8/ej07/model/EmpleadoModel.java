@@ -35,8 +35,13 @@ public class EmpleadoModel extends Model {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Empleado> getEmpleadoPorNombre(String nombre) {
-		return ss.createQuery("from Empleado where nombre = :nombre").setParameter("nombre", nombre).list();
+	public Empleado getEmpleadoPorUsuario(String usuario) {
+		Empleado empleado = null;
+		List<Empleado> empleados = ss.createQuery("from Empleado where nombre = :usuario").setParameter("usuario", usuario).list();
+		if(empleados.size()>0){
+			empleado=empleados.get(0);
+		}
+		return empleado;
 	}
 
 	public void modificarEmpleado(String nombre, String ape1, String ape2, String pwd, String tlf, Ciudad ciudad,
@@ -59,6 +64,27 @@ public class EmpleadoModel extends Model {
 		Empleado p = (Empleado) ss.load(Empleado.class, id);
 		ss.delete(p);
 		t.commit();
+	}
+
+	private boolean existeEmpleado(String usuario) {
+		return ss.createQuery("from Empleado e where usuario = :usuario").setParameter("usuario", usuario).list()
+				.size() > 0;
+
+	}
+
+	private boolean pwdCorrecta(String usuario, String pwd) {
+		return ss.createQuery("from Empleado e where usuario = :usuario and pwd = :pwd")
+				.setParameter("usuario", usuario).setParameter("pwd", pwd).list().size() > 0;
+	}
+
+	public boolean credencialesUsuarioCorrectas(String usuario, String pwd) {
+		boolean contestacion = false;
+		if (existeEmpleado(usuario)) {
+			if (pwdCorrecta(usuario, pwd)) {
+				contestacion = true;
+			}
+		}
+		return contestacion;
 	}
 
 }

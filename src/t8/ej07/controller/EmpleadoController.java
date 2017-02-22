@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 import org.mvc.Controller;
 
@@ -85,7 +86,7 @@ public class EmpleadoController extends Controller {
 				view("empleado/crearError.jsp");
 			}
 		} catch (Exception e) {
-			datos.put("mensaje",e.getMessage());
+			datos.put("mensaje", e.getMessage());
 			view("empleado/crearError.jsp");
 		}
 	}
@@ -94,12 +95,38 @@ public class EmpleadoController extends Controller {
 		EmpleadoModel model = new EmpleadoModel();
 
 		String filtro = request.getParameter("filtro");
+
+		HttpSession sesion = request.getSession(true);
+		String headerEmpleadoNombre = (String) sesion.getAttribute(headerEmpleadoNombre);
+		String headerEmpleadoApe1 = (String) sesion.getAttribute(headerEmpleadoApe1);
+		datos.put("headerEmpleadoNombre", headerEmpleadoNombre);
+		datos.put("headerEmpleadoApe1", headerEmpleadoApe1);
+
 		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
 
 		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
 		view("empleado/listarGet.jsp");
 
+	}
+
+	public void loginGet() {
+		view("empleado/loginGet.jsp");
+	}
+
+	public void loginPost() {
+		String usuario= request.getParameter("nombre");
+		String pwd= request.getParameter("pass");
+		EmpleadoModel model = new EmpleadoModel();
+		if (model.credencialesUsuarioCorrectas(usuario, pwd)) {
+			HttpSession ss = request.getSession(true);
+			Empleado empleado = model.getEmpleadoPorUsuario(usuario);
+			ss.setAttribute("empleadoId", empleado.getId());
+			ss.setAttribute("empleadoNombre", empleado.getNombre());
+			ss.setAttribute("empleadoApe1", empleado.getApe1());
+		} else {
+			// LOGIN ERROR
+		}
 	}
 
 	public void listarAjaxGet() {
