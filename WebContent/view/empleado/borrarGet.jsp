@@ -1,38 +1,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
-	<h3>Borrar empleados</h3>
+	<h2>Borrar empleados</h2>
+	<script type="text/javascript">
+		var XMLHttpRequestObject = false;
+		if (window.XMLHttpRequest) {
+			XMLHttpRequestObject = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		function compruebaDatos() {
+			datos = document.getElementById('idFiltro').value;
+			if (datos == null) {
+				pedirDatos("${baseURL}empleado/borrarAjax", datos);
+			} else {
+				pedirDatos("${baseURL}empleado/borrarAjax", datos);
+			}
+		}
+
+		function pedirDatos(fuenteDatos, valorParam) {
+			if (XMLHttpRequestObject) {
+				XMLHttpRequestObject.open("GET", fuenteDatos + '?filtro='
+						+ valorParam);
+				XMLHttpRequestObject.onreadystatechange = tratarRespuesta;
+				XMLHttpRequestObject.send(null);
+			}
+
+		}
+
+		function tratarRespuesta() {
+			if (XMLHttpRequestObject.readyState == 4
+					&& XMLHttpRequestObject.status == 200) {
+				document.getElementById("empleados").innerHTML = XMLHttpRequestObject.responseText;
+			}
+		}
+	</script>
+	<form name="miForm">
+		Filtrar: <input type="text" name="filtro" id="idFiltro"
+			value="${filtro}" onkeyup="compruebaDatos();">
+	</form>
 	<form action="${baseURL}empleado/borrar" method="post" name="form">
 		<table class="table table-striped">
-			<thead>
+			<thead  id="empleados">
 
-				<tr>
-					<th>Nombre</th>
-					<th>Primer apellido</th>
-					<th>Segundo apellido</th>
-					<th>Teléfono</th>
-					<th>Ciudad</th>
-					<th>Lenguajes de programación</th>
-					<th>¿Borrar?</th>
-				</tr>
+				
 			</thead>
-			<tbody>
-				<c:forEach var="empleado" items="${empleados}">
-					<tr>
-						<td>${empleado.nombre}</td>
-						<td>${empleado.ape1}</td>
-						<td>${empleado.ape2}</td>
-						<td>${empleado.tlf}</td>
-						<td>${empleado.ciudad.nombre}</td>
-						<td><c:forEach var="lenguaje" items="${empleado.lenguajes}">
-					${lenguaje.nombre}
-					</c:forEach></td>
-						<td><li class="list-group-item"><input type="checkbox"
-								value="${empleado.id}" name="empDel[]"></td>
-						</td>
-					</tr>
-				</c:forEach>
-
-			</tbody>
+			
 		</table>
 		<button type="submit" class="btn btn-primary btn-lg">
 			<span class="glyphicon glyphicon-erase"></span>
@@ -45,6 +58,9 @@
 
 	</form>
 </div>
+<script>
+	compruebaDatos();
+</script>
 <script type="text/javascript">
 	function seleccionar_todo() {
 		for (i = 0; i < document.form.elements.length; i++)

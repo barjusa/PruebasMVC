@@ -76,6 +76,7 @@ public class EmpleadoController extends Controller {
 		view("empleado/listarGet.jsp");
 
 	}
+
 	public void listarAjaxGet() {
 		EmpleadoModel model = new EmpleadoModel();
 
@@ -84,7 +85,7 @@ public class EmpleadoController extends Controller {
 
 		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
-		view("empleado/listarGet.jsp",false);
+		view("empleado/listarAjax.jsp", false);
 
 	}
 
@@ -97,6 +98,17 @@ public class EmpleadoController extends Controller {
 		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
 		view("empleado/modificarGet.jsp");
+	}
+	
+	public void modificarAjaxGet() {
+		EmpleadoModel model = new EmpleadoModel();
+
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro == null ? "" : filtro);
+
+		datos.put("filtro", filtro);
+		datos.put("empleados", empleados);
+		view("empleado/modificarAjax.jsp",false);
 	}
 
 	public void modificarEmpleadoPost() {
@@ -160,9 +172,22 @@ public class EmpleadoController extends Controller {
 
 	public void borrarGet() {
 		EmpleadoModel model = new EmpleadoModel();
-		List<Empleado> empleados = model.getTodos();
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro);
+
+		datos.put("filtro", filtro);
 		datos.put("empleados", empleados);
 		view("empleado/borrarGet.jsp");
+	}
+	
+	public void borrarAjaxGet() {
+		EmpleadoModel model = new EmpleadoModel();
+		String filtro = request.getParameter("filtro");
+		List<Empleado> empleados = model.getEmpleadosFiltrados(filtro);
+
+		datos.put("filtro", filtro);
+		datos.put("empleados", empleados);
+		view("empleado/borrarAjax.jsp",false);
 	}
 
 	public void borrarPost() {
