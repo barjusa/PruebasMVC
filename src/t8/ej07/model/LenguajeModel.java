@@ -3,6 +3,7 @@ package t8.ej07.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.mvc.Model;
 
@@ -52,6 +53,24 @@ public class LenguajeModel extends Model {
 
 		ss.delete(p);
 		t.commit();
+	}
+
+	public void borrarLenguajeFromEmpleado(Long id) {
+		Transaction t = ss.beginTransaction();
+		List<Lenguaje> lenguajes = ss.createQuery("nombre from Lenguaje where id = :id ").setParameter("id", id).list();
+		List<Lenguaje> lenguajesEmp = ss
+				.createQuery(
+						"from Lenguaje l, Empleado e where l.nombre = :lenguajes and (select e.lenguajes where nombre = :lenguajes)")
+				.setParameter("lenguajes", lenguajes).list();
+		for (Lenguaje lenguaje : lenguajesEmp) {
+			ss.delete(lenguaje);
+		}
+		t.commit();
+
+		/*
+		 * Lenguaje p = (Lenguaje) ss.load(Lenguaje.class, id); ss.delete(p);
+		 * t.commit();
+		 */
 	}
 
 }
