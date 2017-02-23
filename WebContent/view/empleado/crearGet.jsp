@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="container">
 	<h2>Introduce los datos del nuevo empleado</h2>
 
@@ -19,8 +19,8 @@
 				class="form-control" type="text" name="ape2" id="idApe2">
 		</div>
 		<div class="form-group">
-			<label for="idUsu">Usuario *</label> <input
-				class="form-control" type="text" name="usuario" id="idUsu">
+			<label for="idUsu">Usuario *</label> <input class="form-control"
+				type="text" name="usuario" id="idUsu">
 		</div>
 
 		<div class="form-group">
@@ -33,9 +33,11 @@
 				type="text" name="tlf" id="idTlf">
 		</div>
 
+
+
 		<div class="form-group">
-			<label for="idCiudad">Ciudad de nacimiento</label> 
-			<select	name="idCiudad">
+			<label for="idCiudad">Ciudad de nacimiento</label> <select
+				name="idCiudad">
 				<c:forEach var="ciudad" items="${ciudades}">
      				${objeto.atributo}
 					<option value="${ciudad.id}">${ciudad.nombre}</option>
@@ -43,10 +45,6 @@
 			</select>
 		</div>
 
-		<!-- <div class="form-group">
-			<label for="idEmpleado">Jefe</label>
-			 <?= form_dropdown('jefe',$body['empleados']);?>
-		</div> -->
 
 		<div class="form-group">
 			<fieldset>
