@@ -73,4 +73,16 @@ public class LenguajeModel extends Model {
 		 */
 	}
 
+	public void borrarLenguajePorNombre(Lenguaje lenguaje) {
+		for (Empleado empleado : lenguaje.getEmpleados()) {
+			empleado.getLenguajes().remove(lenguaje);
+		}
+
+		Transaction t = ss.beginTransaction();
+
+		ss.delete(lenguaje);
+		t.commit();
+
+	}
+
 }

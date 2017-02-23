@@ -125,13 +125,12 @@ public class LenguajeController extends Controller {
 
 	public void borrarPost() {
 		LenguajeModel model = new LenguajeModel();
-		EmpleadoModel modelEmp = new EmpleadoModel();
 		for (String idLenguajesString : request.getParameterValues("lengDel[]")) {
 			Long idLenguajeLong = Long.parseLong(idLenguajesString);
-			model.borrarLenguaje(idLenguajeLong);
+			Lenguaje lenguajes = model.getLenguajePorId(idLenguajeLong);
+			model.borrarLenguajePorNombre(lenguajes);
+			//model.borrarLenguaje(idLenguajeLong);
 		}
-
-		List<Empleado> empleados = modelEmp.getTodos();
 
 		view("lenguaje/borrarPost.jsp");
 
